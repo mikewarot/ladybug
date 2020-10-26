@@ -14,13 +14,16 @@ type
   TForm1 = class(TForm)
     ButtonTokenize: TButton;
     ButtonParse: TButton;
+    ButtonInterpret: TButton;
     KeyWords: TListBox;
     MainMenu1: TMainMenu;
+    ProgramLines: TMemo;
     MemoOutput: TMemo;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     DisplayWhitespace: TMenuItem;
     SourceCode: TMemo;
+    procedure ButtonInterpretClick(Sender: TObject);
     procedure ButtonParseClick(Sender: TObject);
     procedure ButtonTokenizeClick(Sender: TObject);
   private
@@ -178,6 +181,26 @@ begin
     MemoOutput.Lines.Append('Char ['+expanded+']');
     C := GetCharacter;
   end;
+end;
+
+procedure TForm1.ButtonInterpretClick(Sender: TObject);
+var
+  s : string;
+  t : ttoken;
+  i : integer;
+begin
+  SourceBuffer := SourceCode.Text;
+  SourcePos    := 1;
+  MemoOutput.Clear;
+  GetToken(T);
+  Case T.Kind of
+    Word         : Case T.Name.ToUpper of
+                     'BYE'  : Application.Terminate;
+                     'LIST' : MemoOutput.Text := ProgramLines.Text;
+                   else
+                     MemoOutput.Append('Unhandled WORD : '+T.Name);
+                   end;  // CaseT.Name.ToUpper
+  end; // case T.Kind
 end;
 
 procedure TForm1.ButtonTokenizeClick(Sender: TObject);

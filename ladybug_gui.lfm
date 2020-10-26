@@ -12,7 +12,7 @@ object Form1: TForm1
     Left = 24
     Height = 239
     Top = 27
-    Width = 268
+    Width = 200
     Lines.Strings = (
       '10 Print "Hello, World!"'
       '20 GOTO 10'
@@ -21,10 +21,10 @@ object Form1: TForm1
     TabOrder = 0
   end
   object MemoOutput: TMemo
-    Left = 320
+    Left = 248
     Height = 239
     Top = 27
-    Width = 314
+    Width = 202
     Lines.Strings = (
       'MemoOutput'
     )
@@ -34,7 +34,7 @@ object Form1: TForm1
   object ButtonParse: TButton
     Left = 22
     Height = 68
-    Top = 292
+    Top = 288
     Width = 171
     Caption = 'Parse'
     OnClick = ButtonParseClick
@@ -43,18 +43,19 @@ object Form1: TForm1
   object ButtonTokenize: TButton
     Left = 232
     Height = 68
-    Top = 292
+    Top = 288
     Width = 171
     Caption = 'Tokenize'
     OnClick = ButtonTokenizeClick
     TabOrder = 3
   end
   object KeyWords: TListBox
-    Left = 694
-    Height = 237
+    Left = 478
+    Height = 239
     Top = 27
-    Width = 274
+    Width = 74
     Items.Strings = (
+      'BYE'
       'CLEAR'
       'END'
       'GOSUB'
@@ -70,6 +71,25 @@ object Form1: TForm1
     )
     ItemHeight = 15
     TabOrder = 4
+  end
+  object ProgramLines: TMemo
+    Left = 584
+    Height = 239
+    Top = 27
+    Width = 238
+    Lines.Strings = (
+      'PROGRAM LISTING GOES HERE'
+    )
+    TabOrder = 5
+  end
+  object ButtonInterpret: TButton
+    Left = 448
+    Height = 68
+    Top = 288
+    Width = 171
+    Caption = 'Interpret'
+    OnClick = ButtonInterpretClick
+    TabOrder = 6
   end
   object MainMenu1: TMainMenu
     left = 14
