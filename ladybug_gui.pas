@@ -39,8 +39,8 @@ Type
   end;
 
 const
-  ESC  : Char = #27;
-  EOF  : Char = #26;
+  ESC  = #27;
+  EOF  = #26;
 var
   Form1: TForm1;
   SourceBuffer : string = '';
@@ -133,6 +133,7 @@ begin
                     end;
       DoubleQuoteString :
                     Case C of
+                      EOF : NextState := Done;
                       '"' : NextState := EatDone;
                     else
                       NextState := DoubleQuoteString;
