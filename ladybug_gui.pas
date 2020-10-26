@@ -195,8 +195,9 @@ begin
   GetToken(T);
   Case T.Kind of
     Word         : Case T.Name.ToUpper of
-                     'BYE'  : Application.Terminate;
-                     'LIST' : MemoOutput.Text := ProgramLines.Text;
+                     'BYE'   : Application.Terminate;
+                     'CLEAR' : ProgramLines.Clear;
+                     'LIST'  : MemoOutput.Text := ProgramLines.Text;
                    else
                      MemoOutput.Append('Unhandled WORD : '+T.Name);
                    end;  // CaseT.Name.ToUpper
