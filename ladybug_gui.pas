@@ -12,16 +12,21 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    ButtonTokenize: TButton;
     ButtonParse: TButton;
     MemoOutput: TMemo;
     SourceCode: TMemo;
     procedure ButtonParseClick(Sender: TObject);
+    procedure ButtonTokenizeClick(Sender: TObject);
   private
 
   public
 
   end;
 
+const
+  ESC  : Char = #27;
+  EOF  : Char = #26;
 var
   Form1: TForm1;
   SourceBuffer : string = '';
@@ -41,19 +46,100 @@ begin
     Inc(SourcePos);
   end
   else
-    GetCharacter := #27; // control-z if we're at end
+    GetCharacter := EOF; // control-z if we're at end
+end;
+
+function PeekCharacter : Char;
+begin
+  If SourcePos <= Length(SourceBuffer) then
+    PeekCharacter := SourceBuffer[SourcePos]
+  else
+    PeekCharacter := EOF;
+end;
+
+function Expanded(C : Char):String;
+var
+  s : string;
+begin
+  s := '';
+  case c of
+    #0   : s := '#0';
+    #27  : s := 'ESC';
+    #1..#26  : s := '^' + char(ord(c)+64);
+    #28..#31 : s := '^' + ord(c).ToString;
+    #127 : s := 'DEL';
+  else
+    s := c;
+  end; // case
+  Expanded := S;
+end;
+
+function GetToken : String;
+Type
+  ParseState = (Starting,Number,Word,WhiteSpace,Unknown,Done);
+Const
+  StateName : Array[ParseState] of String = ('Starting','Number','Word','WhiteSpace','Unknown','Done');
+var
+  S : string;
+  state,nextstate : ParseState;
+  c : char;
+begin
+  State := Starting;
+  NextState := Done;  // default to done, for safety
+  S := '';
+  repeat
+    C := PeekCharacter;
+    Case State of
+      Starting    : Case C of
+                      '0'..'9' : NextState := Number;
+                      'A'..'Z',
+                      'a'..'z',
+                      '_'      : NextState := Word;
+                      #9,#10,
+                      #13,' '  : NextState := WhiteSpace;
+                    else
+                      NextState := Unknown;
+                    end;
+      Number      : Case C of
+                      '0'..'9' : NextState := Number;
+                    Else
+                      NextState := Done;
+                    end;
+      Word        : Case C of
+                      'A'..'Z',
+                      'a'..'z',
+                      '0'..'9',
+                      '_'       : NextState := Word;
+                    Else
+                      NextState := Done;
+                    end;
+      WhiteSpace  : Case C of
+                      #9,#10,#13,' ' : NextState := WhiteSpace;
+                    else
+                      NextState := Done;
+                    end;
+      Unknown     : NextState := Done;
+    else
+      Form1.MemoOutput.Append('Unknown Token : ['+S+']');
+      NextState := Done;
+    end; // case State
+    If NextState <> Done then
+      S := S + GetCharacter;
+    State := NextState;
+  until State in [Done];
+  GetToken := S;
 end;
 
 procedure TForm1.ButtonParseClick(Sender: TObject);
 var
-  i,j,k : integer;
   c     : char;
   expanded     : string;
 begin
   SourceBuffer := SourceCode.Text;
+  SourcePos    := 1;
   MemoOutput.Clear;
   c := GetCharacter;
-  While C <> #27 do
+  While C <> EOF do
   begin
     expanded := '';
     case c of
@@ -67,6 +153,21 @@ begin
     end; // case
     MemoOutput.Lines.Append('Char ['+expanded+']');
     C := GetCharacter;
+  end;
+end;
+
+procedure TForm1.ButtonTokenizeClick(Sender: TObject);
+var
+  s : string;
+begin
+  SourceBuffer := SourceCode.Text;
+  SourcePos    := 1;
+  MemoOutput.Clear;
+  S := GetToken;
+  While (S <> EOF) AND (S <> '') do
+  begin
+    MemoOutput.Lines.Append('Token ['+S+']');
+    S := GetToken;
   end;
 end;
 

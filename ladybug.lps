@@ -12,7 +12,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="23"/>
       </Unit0>
       <Unit1>
         <Filename Value="ladybug_gui.pas"/>
@@ -21,37 +21,154 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="25"/>
-        <CursorPos X="18" Y="38"/>
-        <UsageCount Value="20"/>
+        <TopLine Value="128"/>
+        <CursorPos Y="135"/>
+        <UsageCount Value="23"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
     </Units>
-    <JumpHistory Count="5" HistoryIndex="4">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="150" TopLine="124"/>
       </Position1>
       <Position2>
         <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="40" TopLine="13"/>
+        <Caret Line="74" TopLine="58"/>
       </Position2>
       <Position3>
         <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="43" Column="26" TopLine="13"/>
+        <Caret Line="75" TopLine="58"/>
       </Position3>
       <Position4>
         <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="54" Column="17" TopLine="23"/>
+        <Caret Line="81" TopLine="58"/>
       </Position4>
       <Position5>
         <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="55" Column="46" TopLine="29"/>
+        <Caret Line="107" TopLine="92"/>
       </Position5>
+      <Position6>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="108" TopLine="92"/>
+      </Position6>
+      <Position7>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="109" TopLine="92"/>
+      </Position7>
+      <Position8>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="110" TopLine="92"/>
+      </Position8>
+      <Position9>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="73" TopLine="57"/>
+      </Position9>
+      <Position10>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="74" TopLine="57"/>
+      </Position10>
+      <Position11>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="98" TopLine="83"/>
+      </Position11>
+      <Position12>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="101" TopLine="83"/>
+      </Position12>
+      <Position13>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="107" TopLine="83"/>
+      </Position13>
+      <Position14>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="109" TopLine="84"/>
+      </Position14>
+      <Position15>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="110" TopLine="85"/>
+      </Position15>
+      <Position16>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="111" TopLine="86"/>
+      </Position16>
+      <Position17>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="67" TopLine="51"/>
+      </Position17>
+      <Position18>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="112" TopLine="97"/>
+      </Position18>
+      <Position19>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="147" TopLine="124"/>
+      </Position19>
+      <Position20>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="149" TopLine="124"/>
+      </Position20>
+      <Position21>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="150" TopLine="124"/>
+      </Position21>
+      <Position22>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="74" TopLine="58"/>
+      </Position22>
+      <Position23>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="90" TopLine="75"/>
+      </Position23>
+      <Position24>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="94" TopLine="75"/>
+      </Position24>
+      <Position25>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="107" TopLine="92"/>
+      </Position25>
+      <Position26>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="111" TopLine="98"/>
+      </Position26>
+      <Position27>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="147" TopLine="124"/>
+      </Position27>
+      <Position28>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="111" Column="40" TopLine="98"/>
+      </Position28>
+      <Position29>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="128" TopLine="115"/>
+      </Position29>
+      <Position30>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="168" Column="18" TopLine="145"/>
+      </Position30>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes Count="0" ActiveMode=""/>
     </RunParams>
   </ProjectSession>
+  <Debugging>
+    <Watches Count="4">
+      <Item1>
+        <Expression Value="state"/>
+      </Item1>
+      <Item2>
+        <Expression Value="nextstate"/>
+      </Item2>
+      <Item3>
+        <Expression Value="c"/>
+      </Item3>
+      <Item4>
+        <Expression Value="S"/>
+      </Item4>
+    </Watches>
+  </Debugging>
 </CONFIG>

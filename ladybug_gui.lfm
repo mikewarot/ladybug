@@ -3,7 +3,7 @@ object Form1: TForm1
   Height = 473
   Top = -133
   Width = 768
-  Caption = 'Form1'
+  Caption = 'Ladybug'
   ClientHeight = 473
   ClientWidth = 768
   LCLVersion = '2.0.10.0'
@@ -35,8 +35,17 @@ object Form1: TForm1
     Height = 68
     Top = 292
     Width = 171
-    Caption = 'ButtonParse'
+    Caption = 'Parse'
     OnClick = ButtonParseClick
     TabOrder = 2
+  end
+  object ButtonTokenize: TButton
+    Left = 232
+    Height = 68
+    Top = 292
+    Width = 171
+    Caption = 'Tokenize'
+    OnClick = ButtonTokenizeClick
+    TabOrder = 3
   end
 end
