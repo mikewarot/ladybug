@@ -13,8 +13,10 @@ object Form1: TForm1
     Top = 27
     Width = 268
     Lines.Strings = (
-      'SourceCode'
+      '10 Print "Hello, World!"'
+      '20 GOTO 10'
     )
+    ScrollBars = ssAutoBoth
     TabOrder = 0
   end
   object MemoOutput: TMemo
@@ -25,6 +27,7 @@ object Form1: TForm1
     Lines.Strings = (
       'MemoOutput'
     )
+    ScrollBars = ssAutoBoth
     TabOrder = 1
   end
   object ButtonParse: TButton

@@ -35,13 +35,25 @@ procedure TForm1.ButtonParseClick(Sender: TObject);
 var
   i,j,k : integer;
   c     : char;
+  expanded     : string;
   sourcebuffer : string;
 begin
   SourceBuffer := SourceCode.Text;
+  MemoOutput.Clear;
   for i := 1 to length(SourceBuffer) do
   begin
     c := sourcebuffer[i];
-    MemoOutput.Lines.Append('Char ['+c+']');
+    expanded := '';
+    case c of
+      #0   : expanded := '#0';
+      #27  : expanded := 'ESC';
+      #1..#26  : expanded := '^' + char(ord(c)+64);
+      #28..#31 : expanded := '^' + ord(c).ToString;
+      #127 : expanded := 'DEL';
+    else
+      expanded := c;
+    end; // case
+    MemoOutput.Lines.Append('Char ['+expanded+']');
   end;
 end;
 
