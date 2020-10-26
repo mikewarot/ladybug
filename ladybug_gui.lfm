@@ -4,8 +4,9 @@ object Form1: TForm1
   Top = -133
   Width = 768
   Caption = 'Ladybug'
-  ClientHeight = 473
+  ClientHeight = 453
   ClientWidth = 768
+  Menu = MainMenu1
   LCLVersion = '2.0.10.0'
   object SourceCode: TMemo
     Left = 24
@@ -47,5 +48,19 @@ object Form1: TForm1
     Caption = 'Tokenize'
     OnClick = ButtonTokenizeClick
     TabOrder = 3
+  end
+  object MainMenu1: TMainMenu
+    left = 14
+    top = 12
+    object MenuItem1: TMenuItem
+      Caption = '&File'
+    end
+    object MenuItem2: TMenuItem
+      Caption = 'Options'
+      object DisplayWhitespace: TMenuItem
+        AutoCheck = True
+        Caption = 'Display Whitespace Tokens'
+      end
+    end
   end
 end

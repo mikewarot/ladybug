@@ -5,7 +5,7 @@ unit ladybug_gui;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, Menus;
 
 type
 
@@ -14,7 +14,11 @@ type
   TForm1 = class(TForm)
     ButtonTokenize: TButton;
     ButtonParse: TButton;
+    MainMenu1: TMainMenu;
     MemoOutput: TMemo;
+    MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
+    DisplayWhitespace: TMenuItem;
     SourceCode: TMemo;
     procedure ButtonParseClick(Sender: TObject);
     procedure ButtonTokenizeClick(Sender: TObject);
@@ -25,9 +29,9 @@ type
   end;
 
 Type
-  ParseState = (Starting,Number,Word,WhiteSpace,Unknown,Done);
+  ParseState = (Starting,Number,Word,WhiteSpace,Unknown,Done,DoubleQuoteString,EatDone);
 Const
-  StateName : Array[ParseState] of String = ('Starting','Number','Word','WhiteSpace','Unknown','Done');
+  StateName : Array[ParseState] of String = ('Starting','Number','Word','WhiteSpace','Unknown','Done','"String"','EatDone');
 Type
   ttoken = record
     Name : String;
@@ -84,9 +88,8 @@ begin
   Expanded := S;
 end;
 
-function GetToken : TToken;
+procedure GetToken(Var T : TToken);
 var
-  T : TToken;
   S : string;
   state,nextstate : ParseState;
   c : char;
@@ -106,6 +109,7 @@ begin
                       '_'      : NextState := Word;
                       #9,#10,
                       #13,' '  : NextState := WhiteSpace;
+                      '"'      : NextState := DoubleQuoteString;
                     else
                       NextState := Unknown;
                     end;
@@ -127,21 +131,25 @@ begin
                     else
                       NextState := Done;
                     end;
+      DoubleQuoteString :
+                    Case C of
+                      '"' : NextState := EatDone;
+                    else
+                      NextState := DoubleQuoteString;
+                    end;
+
       Unknown     : NextState := Done;
     else
       Form1.MemoOutput.Append('Unknown Token : ['+S+']');
       NextState := Done;
     end; // case State
     If NextState <> Done then
-      S := S + GetCharacter
-    else
-    begin
-      T.Kind:= State;
-      T.Name:=S;
-    end;
+      S := S + GetCharacter;
+
+    T.Kind:= State;
+    T.Name:=S;
     State := NextState;
-  until State in [Done];
-  GetToken := T;
+  until State in [Done,EatDone];
 end;
 
 procedure TForm1.ButtonParseClick(Sender: TObject);
@@ -178,11 +186,12 @@ begin
   SourceBuffer := SourceCode.Text;
   SourcePos    := 1;
   MemoOutput.Clear;
-  T := GetToken;
+  GetToken(T);
   While (T.Name <> EOF) do
   begin
-    MemoOutput.Lines.Append(StateName[T.Kind] + ' ['+T.Name+']');
-    T := GetToken;
+    If (T.Kind <> WhiteSpace) OR (Form1.DisplayWhitespace.Checked) then
+      MemoOutput.Lines.Append(StateName[T.Kind] + ' ['+T.Name+']');
+    GetToken(T);
   end;
 end;
 
