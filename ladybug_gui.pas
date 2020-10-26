@@ -24,6 +24,8 @@ type
 
 var
   Form1: TForm1;
+  SourceBuffer : string = '';
+  SourcePos    : Integer = 1;
 
 implementation
 
@@ -31,18 +33,28 @@ implementation
 
 { TForm1 }
 
+function GetCharacter : Char;
+begin
+  If SourcePos <= Length(SourceBuffer) then
+  begin
+    GetCharacter := SourceBuffer[SourcePos];
+    Inc(SourcePos);
+  end
+  else
+    GetCharacter := #27; // control-z if we're at end
+end;
+
 procedure TForm1.ButtonParseClick(Sender: TObject);
 var
   i,j,k : integer;
   c     : char;
   expanded     : string;
-  sourcebuffer : string;
 begin
   SourceBuffer := SourceCode.Text;
   MemoOutput.Clear;
-  for i := 1 to length(SourceBuffer) do
+  c := GetCharacter;
+  While C <> #27 do
   begin
-    c := sourcebuffer[i];
     expanded := '';
     case c of
       #0   : expanded := '#0';
@@ -54,6 +66,7 @@ begin
       expanded := c;
     end; // case
     MemoOutput.Lines.Append('Char ['+expanded+']');
+    C := GetCharacter;
   end;
 end;
 
