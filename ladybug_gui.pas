@@ -24,6 +24,16 @@ type
 
   end;
 
+Type
+  ParseState = (Starting,Number,Word,WhiteSpace,Unknown,Done);
+Const
+  StateName : Array[ParseState] of String = ('Starting','Number','Word','WhiteSpace','Unknown','Done');
+Type
+  ttoken = record
+    Name : String;
+    Kind : ParseState;
+  end;
+
 const
   ESC  : Char = #27;
   EOF  : Char = #26;
@@ -74,16 +84,15 @@ begin
   Expanded := S;
 end;
 
-function GetToken : String;
-Type
-  ParseState = (Starting,Number,Word,WhiteSpace,Unknown,Done);
-Const
-  StateName : Array[ParseState] of String = ('Starting','Number','Word','WhiteSpace','Unknown','Done');
+function GetToken : TToken;
 var
+  T : TToken;
   S : string;
   state,nextstate : ParseState;
   c : char;
 begin
+  T.Kind:= Unknown;
+  T.Name:= '';
   State := Starting;
   NextState := Done;  // default to done, for safety
   S := '';
@@ -124,10 +133,15 @@ begin
       NextState := Done;
     end; // case State
     If NextState <> Done then
-      S := S + GetCharacter;
+      S := S + GetCharacter
+    else
+    begin
+      T.Kind:= State;
+      T.Name:=S;
+    end;
     State := NextState;
   until State in [Done];
-  GetToken := S;
+  GetToken := T;
 end;
 
 procedure TForm1.ButtonParseClick(Sender: TObject);
@@ -159,15 +173,16 @@ end;
 procedure TForm1.ButtonTokenizeClick(Sender: TObject);
 var
   s : string;
+  t : ttoken;
 begin
   SourceBuffer := SourceCode.Text;
   SourcePos    := 1;
   MemoOutput.Clear;
-  S := GetToken;
-  While (S <> EOF) AND (S <> '') do
+  T := GetToken;
+  While (T.Name <> EOF) do
   begin
-    MemoOutput.Lines.Append('Token ['+S+']');
-    S := GetToken;
+    MemoOutput.Lines.Append(StateName[T.Kind] + ' ['+T.Name+']');
+    T := GetToken;
   end;
 end;
 
