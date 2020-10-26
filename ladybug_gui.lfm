@@ -1,0 +1,39 @@
+object Form1: TForm1
+  Left = 1878
+  Height = 473
+  Top = -133
+  Width = 768
+  Caption = 'Form1'
+  ClientHeight = 473
+  ClientWidth = 768
+  LCLVersion = '2.0.10.0'
+  object SourceCode: TMemo
+    Left = 24
+    Height = 239
+    Top = 27
+    Width = 268
+    Lines.Strings = (
+      'SourceCode'
+    )
+    TabOrder = 0
+  end
+  object MemoOutput: TMemo
+    Left = 358
+    Height = 239
+    Top = 27
+    Width = 314
+    Lines.Strings = (
+      'MemoOutput'
+    )
+    TabOrder = 1
+  end
+  object ButtonParse: TButton
+    Left = 22
+    Height = 68
+    Top = 292
+    Width = 171
+    Caption = 'ButtonParse'
+    OnClick = ButtonParseClick
+    TabOrder = 2
+  end
+end
