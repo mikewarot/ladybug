@@ -14,6 +14,7 @@ type
   TForm1 = class(TForm)
     ButtonTokenize: TButton;
     ButtonParse: TButton;
+    KeyWords: TListBox;
     MainMenu1: TMainMenu;
     MemoOutput: TMemo;
     MenuItem1: TMenuItem;
@@ -183,6 +184,7 @@ procedure TForm1.ButtonTokenizeClick(Sender: TObject);
 var
   s : string;
   t : ttoken;
+  i : integer;
 begin
   SourceBuffer := SourceCode.Text;
   SourcePos    := 1;
@@ -190,8 +192,19 @@ begin
   GetToken(T);
   While (T.Name <> EOF) do
   begin
-    If (T.Kind <> WhiteSpace) OR (Form1.DisplayWhitespace.Checked) then
+    Case T.Kind of
+      WhiteSpace   : If Form1.DisplayWhitespace.Checked then
+                       MemoOutput.Lines.Append(StateName[T.Kind] + ' ['+T.Name+']');
+      Word         : Begin
+                       I := KeyWords.Items.IndexOf(T.Name);
+                       If I >= 0 then
+                         MemoOutput.Lines.Append('KEYWORD: '+KeyWords.Items[i])
+                       Else
+                         MemoOutput.Lines.Append('UNKNOWN KEYWORD: '+T.Name);
+                     end;
+    else
       MemoOutput.Lines.Append(StateName[T.Kind] + ' ['+T.Name+']');
+    end;
     GetToken(T);
   end;
 end;
