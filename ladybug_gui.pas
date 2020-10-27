@@ -33,9 +33,9 @@ type
   end;
 
 Type
-  ParseState = (Starting,Number,Word,WhiteSpace,Unknown,Done,DoubleQuoteString,EatDone);
+  ParseState = (Starting,Number,Word,WhiteSpace,Unknown,Done,DoubleQuoteString,EatDone,EOL);
 Const
-  StateName : Array[ParseState] of String = ('Starting','Number','Word','WhiteSpace','Unknown','Done','"String"','EatDone');
+  StateName : Array[ParseState] of String = ('Starting','Number','Word','WhiteSpace','Unknown','Done','"String"','EatDone','EOL');
 Type
   ttoken = record
     Name : String;
@@ -111,8 +111,8 @@ begin
                       'A'..'Z',
                       'a'..'z',
                       '_'      : NextState := Word;
-                      #9,#10,
-                      #13,' '  : NextState := WhiteSpace;
+                      #9,' '   : NextState := WhiteSpace;
+                      #10,#13  : NextState := EOL;
                       '"'      : NextState := DoubleQuoteString;
                     else
                       NextState := Unknown;
@@ -132,6 +132,11 @@ begin
                     end;
       WhiteSpace  : Case C of
                       #9,#10,#13,' ' : NextState := WhiteSpace;
+                    else
+                      NextState := Done;
+                    end;
+      EOL         : Case C of
+                      #10,#13  : NextState := EOL;
                     else
                       NextState := Done;
                     end;
@@ -201,6 +206,15 @@ begin
                    else
                      MemoOutput.Append('Unhandled WORD : '+T.Name);
                    end;  // CaseT.Name.ToUpper
+    Number       : begin
+                     S := T.Name;
+                     Repeat
+                       GetToken(T);
+                       If T.Kind <> EOL then
+                         S := S + T.Name;
+                     Until (T.Kind in [EOL]) OR (T.Name = EOF);
+                     ProgramLines.Append(S);
+                   end;
   end; // case T.Kind
 end;
 
