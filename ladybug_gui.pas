@@ -33,18 +33,15 @@ type
   end;
 
 Type
-  ParseState = (Starting,Number,Word,WhiteSpace,Unknown,Done,DoubleQuoteString,EatDone,EOL);
+  ParseState = (Starting,Number,Word,WhiteSpace,Unknown,Done,DoubleQuoteString,EatDone,EOL,EOF);
 Const
-  StateName : Array[ParseState] of String = ('Starting','Number','Word','WhiteSpace','Unknown','Done','"String"','EatDone','EOL');
+  StateName : Array[ParseState] of String = ('Starting','Number','Word','WhiteSpace','Unknown','Done','"String"','EatDone','EOL','EOF');
 Type
   ttoken = record
     Name : String;
     Kind : ParseState;
   end;
 
-const
-  ESC  = #27;
-  EOF  = #26;
 var
   Form1: TForm1;
   SourceBuffer : string = '';
@@ -64,7 +61,7 @@ begin
     Inc(SourcePos);
   end
   else
-    GetCharacter := EOF; // control-z if we're at end
+    GetCharacter := ^Z; // control-z if we're at end
 end;
 
 function PeekCharacter : Char;
@@ -72,7 +69,7 @@ begin
   If SourcePos <= Length(SourceBuffer) then
     PeekCharacter := SourceBuffer[SourcePos]
   else
-    PeekCharacter := EOF;
+    PeekCharacter := ^Z;
 end;
 
 function Expanded(C : Char):String;
@@ -113,6 +110,7 @@ begin
                       '_'      : NextState := Word;
                       #9,' '   : NextState := WhiteSpace;
                       #10,#13  : NextState := EOL;
+                      #26      : NextState := EOF;
                       '"'      : NextState := DoubleQuoteString;
                     else
                       NextState := Unknown;
@@ -140,9 +138,10 @@ begin
                     else
                       NextState := Done;
                     end;
+      EOF         : NextState := Done;
       DoubleQuoteString :
                     Case C of
-                      EOF : NextState := Done;
+                      ^Z  : NextState := Done;
                       '"' : NextState := EatDone;
                     else
                       NextState := DoubleQuoteString;
@@ -171,7 +170,7 @@ begin
   SourcePos    := 1;
   MemoOutput.Clear;
   c := GetCharacter;
-  While C <> EOF do
+  While C <> ^Z do
   begin
     expanded := '';
     case c of
@@ -197,25 +196,30 @@ begin
   SourceBuffer := SourceCode.Text;
   SourcePos    := 1;
   MemoOutput.Clear;
-  GetToken(T);
-  Case T.Kind of
-    Word         : Case T.Name.ToUpper of
-                     'BYE'   : Application.Terminate;
-                     'CLEAR' : ProgramLines.Clear;
-                     'LIST'  : MemoOutput.Text := ProgramLines.Text;
-                   else
-                     MemoOutput.Append('Unhandled WORD : '+T.Name);
-                   end;  // CaseT.Name.ToUpper
-    Number       : begin
-                     S := T.Name;
-                     Repeat
-                       GetToken(T);
-                       If T.Kind <> EOL then
-                         S := S + T.Name;
-                     Until (T.Kind in [EOL]) OR (T.Name = EOF);
-                     ProgramLines.Append(S);
-                   end;
-  end; // case T.Kind
+  Repeat
+    GetToken(T);
+    Case T.Kind of
+      Word         : Case T.Name.ToUpper of
+                       'BYE'   : Application.Terminate;
+                       'CLEAR' : ProgramLines.Clear;
+                       'LIST'  : MemoOutput.Text := ProgramLines.Text;
+                     else
+                       MemoOutput.Append('Unhandled WORD : '+T.Name);
+                     end;  // CaseT.Name.ToUpper
+      Number       : begin
+                       S := T.Name;
+                       Repeat
+                         GetToken(T);
+                         If T.Kind <> EOL then
+                           S := S + T.Name;
+                       Until T.Kind in [EOL,EOF];
+                       ProgramLines.Append(S);
+                     end;
+      EOL,EOF      : // nothing
+    else
+      MemoOutput.Append('Unhandled Token '+StateName[T.Kind] + ' ['+T.Name+']');
+    end; // case T.Kind
+  Until T.Kind = EOF;
 end;
 
 procedure TForm1.ButtonTokenizeClick(Sender: TObject);
@@ -228,7 +232,7 @@ begin
   SourcePos    := 1;
   MemoOutput.Clear;
   GetToken(T);
-  While (T.Name <> EOF) do
+  While (T.Kind <> EOF) do
   begin
     Case T.Kind of
       WhiteSpace   : If Form1.DisplayWhitespace.Checked then
