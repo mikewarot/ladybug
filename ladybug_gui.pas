@@ -12,9 +12,10 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    ButtonInterpret: TButton;
     ButtonTokenize: TButton;
     ButtonParse: TButton;
-    ButtonInterpret: TButton;
+    ButtonTestInterpret: TButton;
     KeyWords: TListBox;
     MainMenu1: TMainMenu;
     ProgramLines: TMemo;
@@ -24,6 +25,7 @@ type
     DisplayWhitespace: TMenuItem;
     SourceCode: TMemo;
     procedure ButtonInterpretClick(Sender: TObject);
+    procedure ButtonTestInterpretClick(Sender: TObject);
     procedure ButtonParseClick(Sender: TObject);
     procedure ButtonTokenizeClick(Sender: TObject);
   private
@@ -60,7 +62,7 @@ begin
   end;
 end;
 
-procedure TForm1.ButtonInterpretClick(Sender: TObject);
+procedure TForm1.ButtonTestInterpretClick(Sender: TObject);
 var
   s : string;
   t,x : ttoken;
@@ -105,6 +107,12 @@ begin
       MemoOutput.Append('Unhandled Token '+StateName[T.Kind] + ' ['+T.Name+']');
     end; // case T.Kind
   Until T.Kind = EOF;
+end;
+
+procedure TForm1.ButtonInterpretClick(Sender: TObject);
+begin
+  MemoOutput.Clear;
+  Interpret(SourceCode.Text);
 end;
 
 procedure TForm1.ButtonTokenizeClick(Sender: TObject);

@@ -9,9 +9,9 @@ object Form1: TForm1
   Menu = MainMenu1
   LCLVersion = '2.0.10.0'
   object SourceCode: TMemo
-    Left = 22
+    Left = 24
     Height = 239
-    Top = 24
+    Top = 27
     Width = 200
     Lines.Strings = (
       'CLEAR'
@@ -85,14 +85,23 @@ object Form1: TForm1
     )
     TabOrder = 5
   end
-  object ButtonInterpret: TButton
+  object ButtonTestInterpret: TButton
     Left = 448
+    Height = 68
+    Top = 288
+    Width = 171
+    Caption = 'Interpret (Test)'
+    OnClick = ButtonTestInterpretClick
+    TabOrder = 6
+  end
+  object ButtonInterpret: TButton
+    Left = 656
     Height = 68
     Top = 288
     Width = 171
     Caption = 'Interpret'
     OnClick = ButtonInterpretClick
-    TabOrder = 6
+    TabOrder = 7
   end
   object MainMenu1: TMainMenu
     left = 14

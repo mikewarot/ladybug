@@ -25,6 +25,7 @@ Type
   procedure DefaultOutput(S : String);
   procedure GetToken(Var T : TToken);
   procedure SetSourceCode(S : String);
+  procedure Interpret(S : String);
 
 var
   StringOut    : StringOutputRoutine = @DefaultOutput;
@@ -156,6 +157,12 @@ procedure SetSourceCode(S : String);
 begin
   SourceBuffer := S;
   SourcePos := 1;
+end;
+
+procedure Interpret(S : String);
+begin
+  SetSourceCode(S);
+
 end;
 
 end.
