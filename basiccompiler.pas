@@ -32,9 +32,52 @@ var
 
 implementation
 
+type
+  TSourceLine = Record
+    Number : Integer;
+    Source : String;
+  end;
+
 var
   SourceBuffer : string = '';
   SourcePos    : Integer = 1;
+
+  SourceLines  : Array[1..200] of TSourceLine;
+  SourceCount  : Integer = 0;
+
+procedure ClearLines;
+begin
+  SourceCount := 0;  // ignore everything restart from zero
+end;
+
+procedure ListLines;
+var
+  i : integer;
+begin
+  for i := 1 to SourceCount do
+    StringOut(SourceLines[i].Number.ToString + ' ' + SourceLines[i].Source);
+end;
+
+procedure AddLine(LineNumber : Integer; SourceCode : String);
+var
+  i,j,k : integer;
+  foundindex : integer;
+begin
+  foundindex := 0;
+  for i := 1 to SourceCount do
+    if SourceLines[i].Number = LineNumber then
+      FoundIndex := i;
+  if (foundindex = 0) then
+  begin
+    inc(SourceCount);
+    SourceLines[SourceCount].Number:= LineNumber;
+    SourceLines[SourceCount].Source:= SourceCode;
+  end
+  else
+  begin
+    SourceLines[FoundIndex].Source:= SourceCode;
+  end;
+end;
 
 procedure DefaultOutput(S : String);
 begin
@@ -171,8 +214,8 @@ begin
     Case T.Kind of
       Word         : Case T.Name.ToUpper of
 //                       'BYE'   : Application.Terminate;
-//                       'CLEAR' : ProgramLines.Clear;
-//                       'LIST'  : MemoOutput.Text := ProgramLines.Text;
+                       'CLEAR' : ClearLines;
+                       'LIST'  : ListLines;
                        'PRINT' : begin
                                    S := '';
                                    repeat
@@ -189,17 +232,17 @@ begin
                      else
                        StringOut('Unhandled WORD : '+T.Name);
                      end;  // CaseT.Name.ToUpper
-(*
+
       Number       : begin
-                       S := T.Name;
+                       i := T.Name.ToInteger;  // line number we're adding goes in I
+                       S := '';
                        Repeat
                          GetToken(T);
                          If T.Kind <> EOL then
                            S := S + T.Name;
                        Until T.Kind in [EOL,EOF];
-                       ProgramLines.Append(S);
+                       AddLine(I,S);  // add line #i
                      end;
-*)
       EOL,EOF      : // nothing
     else
       StringOut('Unhandled Token '+StateName[T.Kind] + ' ['+T.Name+']');
