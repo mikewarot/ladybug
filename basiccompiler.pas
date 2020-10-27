@@ -69,13 +69,23 @@ begin
       FoundIndex := i;
   if (foundindex = 0) then
   begin
-    inc(SourceCount);
-    SourceLines[SourceCount].Number:= LineNumber;
-    SourceLines[SourceCount].Source:= SourceCode;
+    If SourceCode <> '' then                       // don't add empty lines
+    begin
+      inc(SourceCount);
+      SourceLines[SourceCount].Number:= LineNumber;
+      SourceLines[SourceCount].Source:= SourceCode;
+    end;
   end
   else
-  begin
-    SourceLines[FoundIndex].Source:= SourceCode;
+  begin                                              // found it
+    If SourceCode <> '' then
+      SourceLines[FoundIndex].Source:= SourceCode    // replace it
+    else
+    begin  // delete an existing line, if we replace with nothing
+      for i := FoundIndex to SourceCount-1 do
+        SourceLines[i] := SourceLines[i+1];
+      dec(SourceCount);
+    end;
   end;
 end;
 
@@ -237,10 +247,14 @@ begin
                        i := T.Name.ToInteger;  // line number we're adding goes in I
                        S := '';
                        Repeat
-                         GetToken(T);
-                         If T.Kind <> EOL then
-                           S := S + T.Name;
-                       Until T.Kind in [EOL,EOF];
+                         GetToken(X);
+                         Case X.Kind of
+                           EOF,EOL :  ;  // nothing
+                           WhiteSpace : If S <> '' then S := S + X.Name;
+                         else
+                           S := S + X.Name;
+                         end;
+                       Until X.Kind in [EOL,EOF];
                        AddLine(I,S);  // add line #i
                      end;
       EOL,EOF      : // nothing
