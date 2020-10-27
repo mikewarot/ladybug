@@ -23,6 +23,8 @@ Type
   function PeekCharacter : Char;
   function Expanded(C : Char):String;
   procedure DefaultOutput(S : String);
+  procedure GetToken(Var T : TToken);
+
 
 var
   SourceBuffer : string = '';
@@ -72,7 +74,81 @@ begin
   Expanded := S;
 end;
 
+procedure GetToken(Var T : TToken);
+var
+  S : string;
+  state,nextstate : ParseState;
+  c : char;
+  delimiter : char;
+begin
+  T.Kind:= Unknown;
+  T.Name:= '';
+  State := Starting;
+  Delimiter := '"';
+  NextState := Done;  // default to done, for safety
+  S := '';
+  repeat
+    C := PeekCharacter;
+    Case State of
+      Starting    : Case C of
+                      '0'..'9' : NextState := Number;
+                      'A'..'Z',
+                      'a'..'z',
+                      '_'      : NextState := Word;
+                      #9,' '   : NextState := WhiteSpace;
+                      #10,#13  : NextState := EOL;
+                      #26      : NextState := EOF;
+                      '"','''' : begin
+                                   Delimiter := C;
+                                   NextState := GetString;
+                                 end
+                    else
+                      NextState := Unknown;
+                    end;
+      Number      : Case C of
+                      '0'..'9' : NextState := Number;
+                    Else
+                      NextState := Done;
+                    end;
+      Word        : Case C of
+                      'A'..'Z',
+                      'a'..'z',
+                      '0'..'9',
+                      '_'       : NextState := Word;
+                    Else
+                      NextState := Done;
+                    end;
+      WhiteSpace  : Case C of
+                      #9,#10,#13,' ' : NextState := WhiteSpace;
+                    else
+                      NextState := Done;
+                    end;
+      EOL         : Case C of
+                      #10,#13  : NextState := EOL;
+                    else
+                      NextState := Done;
+                    end;
+      EOF         : NextState := Done;
+      GetString   : begin
+                      If C = Delimiter then
+                        NextState := GotString;
+                      If C = ^Z then
+                        NextState := Done;
+                    end; // otherwise stay in GetString
+      GotString   : NextState := Done;
+      Unknown     : NextState := Done;
+    else
+      StringOut('Unknown Token : ['+S+']');
+      NextState := Done;
+    end; // case State
+    If NextState <> Done then
+      S := S + GetCharacter;
 
+    T.Kind:= State;
+    T.Name:=S;
+    State := NextState;
+  until State in [Done,EatDone];
+end;
 
 end.
 
