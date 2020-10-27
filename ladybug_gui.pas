@@ -33,9 +33,9 @@ type
   end;
 
 Type
-  ParseState = (Starting,Number,Word,WhiteSpace,Unknown,Done,DoubleQuoteString,EatDone,EOL,EOF);
+  ParseState = (Starting,Number,Word,WhiteSpace,Unknown,Done,GetString,GotString,EatDone,EOL,EOF);
 Const
-  StateName : Array[ParseState] of String = ('Starting','Number','Word','WhiteSpace','Unknown','Done','"String"','EatDone','EOL','EOF');
+  StateName : Array[ParseState] of String = ('Starting','Number','Word','WhiteSpace','Unknown','Done','Unterminated String','String','EatDone','EOL','EOF');
 Type
   ttoken = record
     Name : String;
@@ -94,10 +94,12 @@ var
   S : string;
   state,nextstate : ParseState;
   c : char;
+  delimiter : char;
 begin
   T.Kind:= Unknown;
   T.Name:= '';
   State := Starting;
+  Delimiter := '"';
   NextState := Done;  // default to done, for safety
   S := '';
   repeat
@@ -111,7 +113,10 @@ begin
                       #9,' '   : NextState := WhiteSpace;
                       #10,#13  : NextState := EOL;
                       #26      : NextState := EOF;
-                      '"'      : NextState := DoubleQuoteString;
+                      '"','''' : begin
+                                   Delimiter := C;
+                                   NextState := GetString;
+                                 end
                     else
                       NextState := Unknown;
                     end;
@@ -139,14 +144,13 @@ begin
                       NextState := Done;
                     end;
       EOF         : NextState := Done;
-      DoubleQuoteString :
-                    Case C of
-                      ^Z  : NextState := Done;
-                      '"' : NextState := EatDone;
-                    else
-                      NextState := DoubleQuoteString;
-                    end;
-
+      GetString   : begin
+                      If C = Delimiter then
+                        NextState := GotString;
+                      If C = ^Z then
+                        NextState := Done;
+                    end; // otherwise stay in GetString
+      GotString   : NextState := Done;
       Unknown     : NextState := Done;
     else
       Form1.MemoOutput.Append('Unknown Token : ['+S+']');
@@ -208,7 +212,7 @@ begin
                                    repeat
                                      GetToken(X);
                                      Case X.Kind of
-                                       DoubleQuoteString,
+                                       GotString,
                                        Number               : S := S + X.Name;
                                      else
                                        s := s + ' ';
