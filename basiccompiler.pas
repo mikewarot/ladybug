@@ -24,8 +24,8 @@ Type
   function Expanded(C : Char):String;
   procedure DefaultOutput(S : String);
   procedure GetToken(Var T : TToken);
-  procedure SetSourceCode(S : String);
-  procedure Interpret(S : String);
+  procedure SetSourceCode(SourceCode : String);
+  procedure Interpret(SourceCode : String);
 
 var
   StringOut    : StringOutputRoutine = @DefaultOutput;
@@ -153,16 +153,58 @@ begin
   until State in [Done,EatDone];
 end;
 
-procedure SetSourceCode(S : String);
+procedure SetSourceCode(SourceCode : String);
 begin
-  SourceBuffer := S;
+  SourceBuffer := SourceCode;
   SourcePos := 1;
 end;
 
-procedure Interpret(S : String);
+procedure Interpret(SourceCode : String);
+var
+  s : string;
+  t,x : ttoken;
+  i : integer;
 begin
-  SetSourceCode(S);
-
+  SetSourceCode(SourceCode);
+  Repeat
+    GetToken(T);
+    Case T.Kind of
+      Word         : Case T.Name.ToUpper of
+//                       'BYE'   : Application.Terminate;
+//                       'CLEAR' : ProgramLines.Clear;
+//                       'LIST'  : MemoOutput.Text := ProgramLines.Text;
+                       'PRINT' : begin
+                                   S := '';
+                                   repeat
+                                     GetToken(X);
+                                     Case X.Kind of
+                                       GotString,
+                                       Number               : S := S + X.Name;
+                                     else
+                                       s := s + ' ';
+                                     end;
+                                   until X.Kind in [EOL,EOF];
+                                   StringOut(S);
+                                 end;
+                     else
+                       StringOut('Unhandled WORD : '+T.Name);
+                     end;  // CaseT.Name.ToUpper
+(*
+      Number       : begin
+                       S := T.Name;
+                       Repeat
+                         GetToken(T);
+                         If T.Kind <> EOL then
+                           S := S + T.Name;
+                       Until T.Kind in [EOL,EOF];
+                       ProgramLines.Append(S);
+                     end;
+*)
+      EOL,EOF      : // nothing
+    else
+      StringOut('Unhandled Token '+StateName[T.Kind] + ' ['+T.Name+']');
+    end; // case T.Kind
+  Until T.Kind = EOF;
 end;
 
 end.

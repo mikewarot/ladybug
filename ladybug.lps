@@ -18,8 +18,8 @@
         <ComponentName Value="Form1"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <TopLine Value="95"/>
-        <CursorPos X="31" Y="115"/>
+        <TopLine Value="65"/>
+        <CursorPos Y="66"/>
         <UsageCount Value="34"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -30,8 +30,8 @@
         <UnitName Value="BasicCompiler"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="134"/>
-        <CursorPos X="3" Y="165"/>
+        <TopLine Value="181"/>
+        <CursorPos X="16" Y="205"/>
         <UsageCount Value="23"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -39,123 +39,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="142" Column="7" TopLine="71"/>
+        <Caret Line="153" Column="17" TopLine="127"/>
       </Position1>
       <Position2>
         <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="143" TopLine="113"/>
+        <Caret Line="201" Column="17" TopLine="175"/>
       </Position2>
       <Position3>
-        <Filename Value="basiccompiler.pas"/>
-        <Caret Line="60" TopLine="29"/>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="214" Column="30" TopLine="188"/>
       </Position3>
       <Position4>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="99" TopLine="68"/>
+        <Caret Line="20" Column="47"/>
       </Position4>
       <Position5>
         <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="95"/>
+        <Caret Line="38" TopLine="29"/>
       </Position5>
       <Position6>
         <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="115" Column="16" TopLine="93"/>
+        <Caret Line="230" Column="51" TopLine="201"/>
       </Position6>
       <Position7>
         <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="127" Column="17" TopLine="101"/>
+        <Caret Line="229" TopLine="200"/>
       </Position7>
       <Position8>
-        <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="153" Column="17" TopLine="127"/>
+        <Filename Value="basiccompiler.pas"/>
+        <Caret Line="30" Column="53" TopLine="13"/>
       </Position8>
       <Position9>
         <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="201" Column="17" TopLine="175"/>
+        <Caret Line="49" TopLine="19"/>
       </Position9>
       <Position10>
-        <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="214" Column="30" TopLine="188"/>
+        <Filename Value="basiccompiler.pas"/>
+        <Caret Line="30" TopLine="16"/>
       </Position10>
       <Position11>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="20" Column="47"/>
+        <Caret Line="158" Column="19" TopLine="131"/>
       </Position11>
       <Position12>
         <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="38" TopLine="29"/>
+        <Caret Line="55" TopLine="38"/>
       </Position12>
       <Position13>
         <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="230" Column="51" TopLine="201"/>
+        <Caret Line="81" TopLine="64"/>
       </Position13>
       <Position14>
-        <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="229" TopLine="200"/>
+        <Filename Value="basiccompiler.pas"/>
+        <Caret Line="29" TopLine="9"/>
       </Position14>
       <Position15>
-        <Filename Value="basiccompiler.pas"/>
-        <Caret Line="30" Column="53" TopLine="13"/>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="123" Column="20" TopLine="58"/>
       </Position15>
       <Position16>
         <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="49" TopLine="19"/>
+        <Caret Line="124" Column="20" TopLine="93"/>
       </Position16>
       <Position17>
-        <Filename Value="basiccompiler.pas"/>
-        <Caret Line="30" TopLine="16"/>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="123" Column="20" TopLine="92"/>
       </Position17>
       <Position18>
-        <Filename Value="basiccompiler.pas"/>
-        <Caret Line="158" Column="19" TopLine="131"/>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="120" Column="28" TopLine="92"/>
       </Position18>
       <Position19>
         <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="55" TopLine="38"/>
+        <Caret Line="121" Column="28" TopLine="93"/>
       </Position19>
       <Position20>
         <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="81" TopLine="64"/>
+        <Caret Line="120" Column="28" TopLine="92"/>
       </Position20>
       <Position21>
-        <Filename Value="basiccompiler.pas"/>
-        <Caret Line="29" TopLine="9"/>
+        <Filename Value="ladybug_gui.pas"/>
+        <Caret Line="121" Column="28" TopLine="93"/>
       </Position21>
       <Position22>
         <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="123" Column="20" TopLine="58"/>
+        <Caret Line="71" Column="3" TopLine="65"/>
       </Position22>
       <Position23>
         <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="124" Column="20" TopLine="93"/>
+        <Caret Line="115" TopLine="112"/>
       </Position23>
       <Position24>
-        <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="123" Column="20" TopLine="92"/>
+        <Filename Value="basiccompiler.pas"/>
+        <Caret Line="27" Column="37" TopLine="7"/>
       </Position24>
       <Position25>
-        <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="120" Column="28" TopLine="92"/>
+        <Filename Value="basiccompiler.pas"/>
+        <Caret Line="28" Column="33" TopLine="7"/>
       </Position25>
       <Position26>
-        <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="121" Column="28" TopLine="93"/>
+        <Filename Value="basiccompiler.pas"/>
+        <Caret Line="187" Column="20" TopLine="178"/>
       </Position26>
       <Position27>
-        <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="120" Column="28" TopLine="92"/>
+        <Filename Value="basiccompiler.pas"/>
+        <Caret Line="175" Column="3" TopLine="158"/>
       </Position27>
       <Position28>
-        <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="121" Column="28" TopLine="93"/>
+        <Filename Value="basiccompiler.pas"/>
+        <Caret Line="187" Column="46" TopLine="172"/>
       </Position28>
       <Position29>
-        <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="71" Column="3" TopLine="65"/>
+        <Filename Value="basiccompiler.pas"/>
+        <Caret Line="190" Column="33" TopLine="175"/>
       </Position29>
       <Position30>
-        <Filename Value="ladybug_gui.pas"/>
-        <Caret Line="115" TopLine="112"/>
+        <Filename Value="basiccompiler.pas"/>
+        <Caret Line="197" Column="3" TopLine="179"/>
       </Position30>
     </JumpHistory>
     <RunParams>
