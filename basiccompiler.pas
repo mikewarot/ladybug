@@ -62,18 +62,25 @@ procedure AddLine(LineNumber : Integer; SourceCode : String);
 var
   i,j,k : integer;
   foundindex : integer;
+  insertpoint : integer;
 begin
   foundindex := 0;
+  insertpoint := 1;
   for i := 1 to SourceCount do
     if SourceLines[i].Number = LineNumber then
-      FoundIndex := i;
+      FoundIndex := i
+    else
+      If LineNumber > SourceLines[i].Number then
+        Insertpoint := i+1;
   if (foundindex = 0) then
   begin
     If SourceCode <> '' then                       // don't add empty lines
     begin
+      for i := SourceCount downto InsertPoint+1 do
+        SourceLines[i] := SourceLines[i-1];        // move lines up
       inc(SourceCount);
-      SourceLines[SourceCount].Number:= LineNumber;
-      SourceLines[SourceCount].Source:= SourceCode;
+      SourceLines[Insertpoint].Number:= LineNumber; // put in newly free location
+      SourceLines[Insertpoint].Source:= SourceCode;
     end;
   end
   else
