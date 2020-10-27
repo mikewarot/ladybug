@@ -24,14 +24,16 @@ Type
   function Expanded(C : Char):String;
   procedure DefaultOutput(S : String);
   procedure GetToken(Var T : TToken);
+  procedure SetSourceCode(S : String);
 
+var
+  StringOut    : StringOutputRoutine = @DefaultOutput;
+
+implementation
 
 var
   SourceBuffer : string = '';
   SourcePos    : Integer = 1;
-  StringOut    : StringOutputRoutine = @DefaultOutput;
-
-implementation
 
 procedure DefaultOutput(S : String);
 begin
@@ -148,6 +150,12 @@ begin
     T.Name:=S;
     State := NextState;
   until State in [Done,EatDone];
+end;
+
+procedure SetSourceCode(S : String);
+begin
+  SourceBuffer := S;
+  SourcePos := 1;
 end;
 
 end.

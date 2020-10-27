@@ -51,8 +51,7 @@ var
   c     : char;
   expanded     : string;
 begin
-  SourceBuffer := SourceCode.Text;
-  SourcePos    := 1;
+  SetSourceCode(SourceCode.Text);
   MemoOutput.Clear;
   c := GetCharacter;
   While C <> ^Z do
@@ -78,8 +77,7 @@ var
   t,x : ttoken;
   i : integer;
 begin
-  SourceBuffer := SourceCode.Text;
-  SourcePos    := 1;
+  SetSourceCode(SourceCode.Text);
   MemoOutput.Clear;
   Repeat
     GetToken(T);
@@ -126,8 +124,7 @@ var
   t : ttoken;
   i : integer;
 begin
-  SourceBuffer := SourceCode.Text;
-  SourcePos    := 1;
+  SetSourceCode(SourceCode.Text);
   MemoOutput.Clear;
   GetToken(T);
   While (T.Kind <> EOF) do
