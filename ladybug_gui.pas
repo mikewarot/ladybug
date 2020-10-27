@@ -190,7 +190,7 @@ end;
 procedure TForm1.ButtonInterpretClick(Sender: TObject);
 var
   s : string;
-  t : ttoken;
+  t,x : ttoken;
   i : integer;
 begin
   SourceBuffer := SourceCode.Text;
@@ -203,6 +203,19 @@ begin
                        'BYE'   : Application.Terminate;
                        'CLEAR' : ProgramLines.Clear;
                        'LIST'  : MemoOutput.Text := ProgramLines.Text;
+                       'PRINT' : begin
+                                   S := '';
+                                   repeat
+                                     GetToken(X);
+                                     Case X.Kind of
+                                       DoubleQuoteString,
+                                       Number               : S := S + X.Name;
+                                     else
+                                       s := s + ' ';
+                                     end;
+                                   until X.Kind in [EOL,EOF];
+                                   MemoOutput.Append(S);
+                                 end;
                      else
                        MemoOutput.Append('Unhandled WORD : '+T.Name);
                      end;  // CaseT.Name.ToUpper
