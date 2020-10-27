@@ -15,9 +15,13 @@ object Form1: TForm1
     Width = 200
     Lines.Strings = (
       'CLEAR'
-      '10 Print "Hello, World!"'
-      '15 Print ''Hello, World'''
       '20 GOTO 10'
+      'LIST'
+      '10 Print "Hello, World!"'
+      'LIST'
+      '15 Print ''Hello, World'''
+      'LIST'
+      '15'
       'LIST'
     )
     ScrollBars = ssAutoBoth

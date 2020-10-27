@@ -76,9 +76,9 @@ begin
   begin
     If SourceCode <> '' then                       // don't add empty lines
     begin
+      inc(SourceCount);
       for i := SourceCount downto InsertPoint+1 do
         SourceLines[i] := SourceLines[i-1];        // move lines up
-      inc(SourceCount);
       SourceLines[Insertpoint].Number:= LineNumber; // put in newly free location
       SourceLines[Insertpoint].Source:= SourceCode;
     end;

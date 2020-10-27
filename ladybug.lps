@@ -10,7 +10,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="21" Y="10"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="38"/>
       </Unit0>
       <Unit1>
         <Filename Value="ladybug_gui.pas"/>
@@ -20,7 +20,7 @@
         <ResourceBaseClass Value="Form"/>
         <TopLine Value="65"/>
         <CursorPos Y="66"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="38"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -31,7 +31,7 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <TopLine Value="60"/>
-        <CursorPos X="27" Y="74"/>
+        <CursorPos Y="79"/>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -39,99 +39,99 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="74" TopLine="49"/>
+        <Caret Line="82" TopLine="56"/>
       </Position1>
       <Position2>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="65" TopLine="49"/>
+        <Caret Line="83" TopLine="57"/>
       </Position2>
       <Position3>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="88" TopLine="73"/>
+        <Caret Line="84" TopLine="58"/>
       </Position3>
       <Position4>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="70" TopLine="50"/>
+        <Caret Line="83" TopLine="58"/>
       </Position4>
       <Position5>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="78" TopLine="52"/>
+        <Caret Line="82" TopLine="59"/>
       </Position5>
       <Position6>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="82" TopLine="56"/>
+        <Caret Line="194" Column="16" TopLine="169"/>
       </Position6>
       <Position7>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="83" TopLine="57"/>
+        <Caret Line="237" Column="45" TopLine="211"/>
       </Position7>
       <Position8>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="84" TopLine="58"/>
+        <Caret Line="240" Column="33" TopLine="215"/>
       </Position8>
       <Position9>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="83" TopLine="58"/>
+        <Caret Line="253" TopLine="228"/>
       </Position9>
       <Position10>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="82" TopLine="59"/>
+        <Caret Line="255" TopLine="230"/>
       </Position10>
       <Position11>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="194" Column="16" TopLine="169"/>
+        <Caret Line="259" Column="16" TopLine="234"/>
       </Position11>
       <Position12>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="237" Column="45" TopLine="211"/>
+        <Caret Line="79" TopLine="61"/>
       </Position12>
       <Position13>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="240" Column="33" TopLine="215"/>
+        <Caret Line="80" TopLine="61"/>
       </Position13>
       <Position14>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="253" TopLine="228"/>
+        <Caret Line="79" TopLine="61"/>
       </Position14>
       <Position15>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="255" TopLine="230"/>
+        <Caret Line="68" Column="19" TopLine="61"/>
       </Position15>
       <Position16>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="259" Column="16" TopLine="234"/>
+        <Caret Line="79" TopLine="61"/>
       </Position16>
       <Position17>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="79" TopLine="61"/>
+        <Caret Line="81" TopLine="61"/>
       </Position17>
       <Position18>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="80" TopLine="61"/>
+        <Caret Line="82" TopLine="61"/>
       </Position18>
       <Position19>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="79" TopLine="61"/>
+        <Caret Line="83" TopLine="61"/>
       </Position19>
       <Position20>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="68" Column="19" TopLine="61"/>
+        <Caret Line="66" TopLine="60"/>
       </Position20>
       <Position21>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="79" TopLine="61"/>
+        <Caret Line="79" TopLine="60"/>
       </Position21>
       <Position22>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="81" TopLine="61"/>
+        <Caret Line="81" TopLine="60"/>
       </Position22>
       <Position23>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="82" TopLine="61"/>
+        <Caret Line="82" TopLine="60"/>
       </Position23>
       <Position24>
         <Filename Value="basiccompiler.pas"/>
-        <Caret Line="83" TopLine="61"/>
+        <Caret Line="83" TopLine="60"/>
       </Position24>
       <Position25>
         <Filename Value="basiccompiler.pas"/>
