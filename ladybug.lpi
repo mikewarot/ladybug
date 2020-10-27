@@ -31,7 +31,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="2">
+    <Units Count="3">
       <Unit0>
         <Filename Value="ladybug.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -43,6 +43,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit1>
+      <Unit2>
+        <Filename Value="basiccompiler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="BasicCompiler"/>
+      </Unit2>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

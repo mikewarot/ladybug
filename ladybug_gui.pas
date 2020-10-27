@@ -5,7 +5,7 @@ unit ladybug_gui;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, Menus;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, Menus, BasicCompiler;
 
 type
 
@@ -32,20 +32,10 @@ type
 
   end;
 
-Type
-  ParseState = (Starting,Number,Word,WhiteSpace,Unknown,Done,GetString,GotString,EatDone,EOL,EOF);
-Const
-  StateName : Array[ParseState] of String = ('Starting','Number','Word','WhiteSpace','Unknown','Done','Unterminated String','String','EatDone','EOL','EOF');
-Type
-  ttoken = record
-    Name : String;
-    Kind : ParseState;
-  end;
-
 var
   Form1: TForm1;
-  SourceBuffer : string = '';
-  SourcePos    : Integer = 1;
+
+Procedure ShowOutput(S : String);
 
 implementation
 
@@ -53,40 +43,9 @@ implementation
 
 { TForm1 }
 
-function GetCharacter : Char;
+Procedure ShowOutput(S : String);
 begin
-  If SourcePos <= Length(SourceBuffer) then
-  begin
-    GetCharacter := SourceBuffer[SourcePos];
-    Inc(SourcePos);
-  end
-  else
-    GetCharacter := ^Z; // control-z if we're at end
-end;
-
-function PeekCharacter : Char;
-begin
-  If SourcePos <= Length(SourceBuffer) then
-    PeekCharacter := SourceBuffer[SourcePos]
-  else
-    PeekCharacter := ^Z;
-end;
-
-function Expanded(C : Char):String;
-var
-  s : string;
-begin
-  s := '';
-  case c of
-    #0   : s := '#0';
-    #27  : s := 'ESC';
-    #1..#26  : s := '^' + char(ord(c)+64);
-    #28..#31 : s := '^' + ord(c).ToString;
-    #127 : s := 'DEL';
-  else
-    s := c;
-  end; // case
-  Expanded := S;
+  form1.MemoOutput.Append(s);
 end;
 
 procedure GetToken(Var T : TToken);
