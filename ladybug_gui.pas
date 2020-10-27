@@ -49,24 +49,13 @@ end;
 procedure TForm1.ButtonParseClick(Sender: TObject);
 var
   c     : char;
-  expanded     : string;
 begin
   SetSourceCode(SourceCode.Text);
   MemoOutput.Clear;
   c := GetCharacter;
   While C <> ^Z do
   begin
-    expanded := '';
-    case c of
-      #0   : expanded := '#0';
-      #27  : expanded := 'ESC';
-      #1..#26  : expanded := '^' + char(ord(c)+64);
-      #28..#31 : expanded := '^' + ord(c).ToString;
-      #127 : expanded := 'DEL';
-    else
-      expanded := c;
-    end; // case
-    MemoOutput.Lines.Append('Char ['+expanded+']');
+    MemoOutput.Lines.Append('Char ['+expanded(c)+']');
     C := GetCharacter;
   end;
 end;
@@ -130,7 +119,8 @@ begin
   While (T.Kind <> EOF) do
   begin
     Case T.Kind of
-      WhiteSpace   : If Form1.DisplayWhitespace.Checked then
+      WhiteSpace,
+      EOL,EOF      : If Form1.DisplayWhitespace.Checked then
                        MemoOutput.Lines.Append(StateName[T.Kind] + ' ['+T.Name+']');
       Word         : Begin
                        I := KeyWords.Items.IndexOf(T.Name);
