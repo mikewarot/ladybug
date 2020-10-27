@@ -1,4 +1,4 @@
-Ladybyg - Building a complier, one commit at a time - An experiment, in Pascal, with no dependencies
+Ladybug - Building a complier, one commit at a time - An experiment, in Pascal, with no dependencies
 
 version 0.001
 Michael Warot
