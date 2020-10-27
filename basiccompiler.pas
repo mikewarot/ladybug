@@ -17,17 +17,24 @@ Type
     Kind : ParseState;
   end;
 
+  StringOutputRoutine = Procedure(S : String);
+
+  function GetCharacter : Char;
+  function PeekCharacter : Char;
+  function Expanded(C : Char):String;
+  procedure DefaultOutput(S : String);
+
 var
   SourceBuffer : string = '';
   SourcePos    : Integer = 1;
-
-  function GetCharacter : Char;
-
-  function PeekCharacter : Char;
-
-  function Expanded(C : Char):String;
+  StringOut    : StringOutputRoutine = @DefaultOutput;
 
 implementation
+
+procedure DefaultOutput(S : String);
+begin
+  // do nothing
+end;
 
 function GetCharacter : Char;
 begin

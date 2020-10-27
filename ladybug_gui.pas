@@ -35,8 +35,6 @@ type
 var
   Form1: TForm1;
 
-Procedure ShowOutput(S : String);
-
 implementation
 
 {$R *.lfm}
@@ -112,7 +110,7 @@ begin
       GotString   : NextState := Done;
       Unknown     : NextState := Done;
     else
-      Form1.MemoOutput.Append('Unknown Token : ['+S+']');
+      ShowOutput('Unknown Token : ['+S+']');
       NextState := Done;
     end; // case State
     If NextState <> Done then
@@ -227,5 +225,7 @@ begin
   end;
 end;
 
+initialization
+  BasicCompiler.StringOut := @ShowOutput;
 end.
 
