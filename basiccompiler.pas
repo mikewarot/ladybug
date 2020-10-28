@@ -81,7 +81,7 @@ end;
 
 procedure AddLine(LineNumber : Integer; SourceCode : String);
 var
-  i,j,k : integer;
+  i : integer;
   foundindex : integer;
   insertpoint : integer;
 begin
@@ -119,7 +119,7 @@ end;
 
 procedure AssignVariable(VariableName : String;  NewValue : Integer);
 var
-  i,j,k : integer;
+  i : integer;
   foundindex : integer;
   insertpoint : integer;
   UpperCaseName : String;
@@ -320,7 +320,7 @@ begin
                                      Case X.Kind of
                                        GotString,
                                        Number               : S := S + X.Name;
-                                       Word                 : S := GetVariable(X.Name).ToString;
+                                       Word                 : S := S + GetVariable(X.Name).ToString;
                                      else
                                        s := s + ' ';
                                      end;
