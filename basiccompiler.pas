@@ -7,10 +7,13 @@ interface
 uses
   Classes, SysUtils;
 
+// List of operators
+//  + - * / > < <> >= <= = ( )
+
 Type
-  ParseState = (Starting,Number,Word,WhiteSpace,Unknown,Done,GetString,GotString,EatDone,EOL,EOF);
+  ParseState = (Starting,Number,Word,WhiteSpace,Unknown,Done,GetString,GotString,EatDone,EOL,EOF,Equals);
 Const
-  StateName : Array[ParseState] of String = ('Starting','Number','Word','WhiteSpace','Unknown','Done','Unterminated String','String','EatDone','EOL','EOF');
+  StateName : Array[ParseState] of String = ('Starting','Number','Word','WhiteSpace','Unknown','Done','Unterminated String','String','EatDone','EOL','EOF','=');
 Type
   ttoken = record
     Name : String;
@@ -37,25 +40,43 @@ type
     Number : Integer;
     Source : String;
   end;
+  TVariable = Record
+    Name  : String;
+    Value : Integer;
+  end;
 
 var
-  SourceBuffer : string = '';
-  SourcePos    : Integer = 1;
+  SourceBuffer  : string = '';
+  SourcePos     : Integer = 1;
 
-  SourceLines  : Array[1..200] of TSourceLine;
-  SourceCount  : Integer = 0;
+  SourceLines   : Array[1..200] of TSourceLine;
+  SourceCount   : Integer = 0;
+
+  Variables     : Array[1..200] of TVariable;
+  VariableCount : Integer = 0;
 
 procedure ClearLines;
 begin
   SourceCount := 0;  // ignore everything restart from zero
+  VariableCount := 0;
 end;
 
 procedure ListLines;
 var
   i : integer;
 begin
-  for i := 1 to SourceCount do
-    StringOut(SourceLines[i].Number.ToString + ' ' + SourceLines[i].Source);
+  If SourceCount <> 0 then
+  begin
+    StringOut('Program Listing');
+    for i := 1 to SourceCount do
+      StringOut(' '+SourceLines[i].Number.ToString + ' ' + SourceLines[i].Source);
+   end;
+   if VariableCount <> 0 then
+   begin
+     Stringout('Variable Listing');
+     for i := 1 to VariableCount do
+       StringOut(' '+Variables[i].Name + ' : '+ Variables[i].Value.ToString);
+   end;
 end;
 
 procedure AddLine(LineNumber : Integer; SourceCode : String);
@@ -94,6 +115,63 @@ begin
       dec(SourceCount);
     end;
   end;
+end;
+
+procedure AssignVariable(VariableName : String;  NewValue : Integer);
+var
+  i,j,k : integer;
+  foundindex : integer;
+  insertpoint : integer;
+  UpperCaseName : String;
+begin
+  foundindex := 0;
+  insertpoint := 1;
+  UpperCasename := VariableName.ToUpper;      // case insensitive sort
+  for i := 1 to VariableCount do
+    if Variables[i].Name = UpperCaseName then
+      FoundIndex := i
+    else
+      If UpperCaseName > Variables[i].Name then
+        Insertpoint := i+1;
+  if (foundindex = 0) then
+  begin
+    inc(VariableCount);
+    for i := VariableCount downto InsertPoint+1 do
+      Variables[i] := Variables[i-1];            // move lines up
+    Variables[Insertpoint].Name := VariableName; // put in newly free location
+    Variables[Insertpoint].Value := NewValue;
+  end
+  else
+    Variables[FoundIndex].Value := NewValue;
+end;
+
+function GetVariable(VariableName : String):Integer;
+var
+  i,j,k : integer;
+  foundindex : integer;
+  insertpoint : integer;
+  UpperCaseName : String;
+begin
+  foundindex := 0;
+  insertpoint := 1;
+  UpperCasename := VariableName.ToUpper;      // case insensitive sort
+  for i := 1 to VariableCount do
+    if Variables[i].Name = UpperCaseName then
+      FoundIndex := i
+    else
+      If UpperCaseName > Variables[i].Name then
+        Insertpoint := i+1;
+  if (foundindex = 0) then
+  begin
+    inc(VariableCount);
+    for i := VariableCount downto InsertPoint+1 do
+      Variables[i] := Variables[i-1];            // move lines up
+    Variables[Insertpoint].Name := VariableName; // put in newly free location
+    Variables[Insertpoint].Value := 42;          // stuff 42 in any uninitialized values
+    GetVariable := 42;
+  end
+  else
+    GetVariable := Variables[FoundIndex].Value;
 end;
 
 procedure DefaultOutput(S : String);
@@ -164,7 +242,8 @@ begin
                       '"','''' : begin
                                    Delimiter := C;
                                    NextState := GetString;
-                                 end
+                                 end;
+                      '='      : NextState := Equals;
                     else
                       NextState := Unknown;
                     end;
@@ -200,6 +279,7 @@ begin
                     end; // otherwise stay in GetString
       GotString   : NextState := Done;
       Unknown     : NextState := Done;
+      Equals      : NextState := Done;
     else
       StringOut('Unknown Token : ['+S+']');
       NextState := Done;
@@ -240,6 +320,7 @@ begin
                                      Case X.Kind of
                                        GotString,
                                        Number               : S := S + X.Name;
+                                       Word                 : S := GetVariable(X.Name).ToString;
                                      else
                                        s := s + ' ';
                                      end;
